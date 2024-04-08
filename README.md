@@ -30,7 +30,7 @@ git clone https://github.com/sacastrot/taskaroo-frontend.git
 npm install
 ```
 
-3. Crear archivo `.env` en la raíz del proyecto con el dominio del backend. Por ejemplo, puede dirigirse al repositorio del backend [aquí](https://github.com/sacastrot/taskaroo-backend.git):
+3. Crear archivo `.env.development` en la raíz del proyecto con el dominio del backend. Por ejemplo, puede dirigirse al repositorio del backend [aquí](https://github.com/sacastrot/taskaroo-backend.git):
 
 ```sh
 VITE_API_URL=http://localhost:8000
