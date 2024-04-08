@@ -28,7 +28,7 @@ const validateUser = () => {
   }
 
   if (!emailRegex.test(userConfig.email)) {
-    error.email = 'El email no es valido'
+    error.email = 'El email no es válido'
   } else {
     error.email = ''
   }
@@ -55,7 +55,7 @@ const requestNewUser = async () => {
   )
   try {
     await adminUsersService.createUser(tempUser)
-    message.value = 'Usuario creado con exito'
+    message.value = 'Usuario creado con éxito'
   } catch (error) {
     errorMessage.value = 'Error al crear el usuario, intenta de nuevo más tarde'
     console.error(error)

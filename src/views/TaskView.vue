@@ -35,7 +35,7 @@ const requestNewTask = async () => {
   try {
     const task = new Task(taskConfig.title, taskConfig.description, undefined, undefined)
     await taskService.createTask(task, id)
-    message.value = 'Tarea creada con exito'
+    message.value = 'Tarea creada con éxito'
     setTimeout(() => {
       message.value = ''
     }, 3000)
@@ -47,6 +47,9 @@ const requestNewTask = async () => {
       errorMessage.value = ''
     }, 3000)
     console.error(error)
+  } finally {
+    taskConfig.title = ''
+    taskConfig.description = ''
   }
 }
 
@@ -62,7 +65,7 @@ const updateAction = (status: boolean) => {
   viewUpdateModal.value = false
   if (status) {
     getTasks()
-    message.value = 'Tarea actualizada con exito'
+    message.value = 'Tarea actualizada con éxito'
   } else {
     errorMessage.value = 'Error al actualizar la tarea, intenta de nuevo más tarde'
   }

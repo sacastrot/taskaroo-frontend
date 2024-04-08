@@ -1,32 +1,6 @@
-<template>
-  <div class="bg-modal h-screen w-screen flex justify-center items-center">
-    <div class="modal">
-      <div class="modal-content max-w-[40rem] min-w-[30rem] p-4 bg-white rounded-lg shadow">
-        <div class="title text-xl font-bold flex justify-between">
-          <h1>Cambio de estado</h1>
-          <span class="material-symbols-outlined" @close="onClose()"> close </span>
-        </div>
-        <div class="body">
-          <div class="form-control">
-            <label for="state">Estado</label>
-            <select id="state" v-model="selectState">
-              <option v-for="state in states" :key="state" :value="state">{{ state }}</option>
-            </select>
-            <div class="error pt-2 pl-1">
-              <p>{{ errorMessage }}</p>
-            </div>
-          </div>
-          <button @click="requestUpdate()">Editar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { taskService } from '@/services/task.service'
 import { ref } from 'vue'
-import { errorMessages } from 'vue/compiler-sfc'
 
 const { id } = defineProps(['id'])
 
@@ -76,6 +50,30 @@ const requestUpdate = async () => {
   }
 }
 </script>
+<template>
+  <div class="bg-modal h-screen w-screen flex justify-center items-center">
+    <div class="modal">
+      <div class="modal-content max-w-[40rem] min-w-[30rem] p-4 bg-white rounded-lg shadow">
+        <div class="title text-xl font-bold flex justify-between">
+          <h1>Cambio de estado</h1>
+          <span class="material-symbols-outlined" @close="onClose()"> close </span>
+        </div>
+        <div class="body">
+          <div class="form-control">
+            <label for="state">Estado</label>
+            <select id="state" v-model="selectState">
+              <option v-for="state in states" :key="state" :value="state">{{ state }}</option>
+            </select>
+            <div class="error pt-2 pl-1">
+              <p>{{ errorMessage }}</p>
+            </div>
+          </div>
+          <button @click="requestUpdate()">Editar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
 
 <style scoped>
 .bg-modal {

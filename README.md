@@ -1,6 +1,12 @@
 # Taskaroo - Frontend
 
+## Descripción
+
 Este es el frontend de la aplicación Taskaroo, una aplicación de gestión de tareas para cada uno de los usuarios creados en la aplicación. La aplicación permite a los usuarios crea tareas, marcarlas como completadas o no completadas. La aplicación también permite crear usuarios y visualizar las tareas que tiene cada uno.
+
+## Demo
+
+Puede ver la aplicación funcionando en el video [Demo](https://youtu.be/w2v9pUeG8lo).
 
 ## IDE y Extensiones Recomendadas
 
