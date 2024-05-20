@@ -1,3 +1,8 @@
+/**
+ * In this file, we define the service that interacts with the API to fetch,
+ * create, and update tasks.
+ */
+
 import api from './api.service'
 import { NotFoundError } from '@/models/errors/ClientError'
 import { UnknownError } from '@/models/errors/UnknownError'

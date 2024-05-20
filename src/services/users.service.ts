@@ -1,5 +1,17 @@
+/**
+ * In this file, we define the service that is responsible for fetching and
+ * creating users.
+ *
+ * This service is used to fetch and create users from the API.
+ */
+
+// Import the User model
 import { User } from '@/models/user'
+
+// Import the API service
 import api from './api.service'
+
+// Import the error models
 import { NotFoundError } from '@/models/errors/ClientError'
 import { UnknownError } from '@/models/errors/UnknownError'
 import { UserError } from '@/models/errors/UserError'

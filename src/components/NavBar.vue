@@ -1,4 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+/**
+ * In this component we will display all the users in the system,
+ * this component show a navigation bar with a link to the home page
+ */
+</script>
 <template>
   <div class="w-100 shadow-md bg-timber">
     <nav class="p-4">
