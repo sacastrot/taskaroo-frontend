@@ -4,9 +4,9 @@
 
 Este es el frontend de la aplicación Taskaroo, una aplicación de gestión de tareas para cada uno de los usuarios creados en la aplicación. La aplicación permite a los usuarios crea tareas, marcarlas como completadas o no completadas. La aplicación también permite crear usuarios y visualizar las tareas que tiene cada uno.
 
-## Demo
+## Sitio web
 
-Puede ver la aplicación funcionando en el video [Demo](https://youtu.be/w2v9pUeG8lo).
+La aplicación se puede utilizar en el siguiente enlace: [Taskaroo](https://sacastrot.github.io/taskaroo-frontend/#/)
 
 ## IDE y Extensiones Recomendadas
 
@@ -57,6 +57,7 @@ npm run build
 ## Estructura de Archivos
 
 - **public**: Archivos estáticos, como imágenes, favicon, etc.
+- **dist**: Archivos compilados minimizados de la aplicación para el despliegue.
 - **src**: Código fuente de la aplicación.
 
   - **assets**: Archivos estáticos, como estilos css, entro otros.
