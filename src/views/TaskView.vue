@@ -26,7 +26,7 @@
  */
 
 //Vue imports
-import { onBeforeMount, reactive, ref } from 'vue'
+import { computed, onBeforeMount, reactive, ref } from 'vue'
 
 //Vue Router imports
 import { useRoute } from 'vue-router'
@@ -45,6 +45,9 @@ import { taskService } from '@/services/task.service'
 
 // Route instance to get the params
 const route = useRoute()
+
+const loadingCreate = ref(false)
+const loadingView = ref(false)
 
 // The id of the user from the route params
 const id: string = route.params.id as string
@@ -90,6 +93,9 @@ const errorMessage = ref('')
  */
 const requestNewTask = async () => {
   try {
+    // Set the loading flag to true
+    loadingCreate.value = true
+
     // Create a new task with the task configuration
     const task = new Task(taskConfig.title, taskConfig.description, undefined, undefined)
 
@@ -119,6 +125,9 @@ const requestNewTask = async () => {
     // Reset the task configuration
     taskConfig.title = ''
     taskConfig.description = ''
+
+    // Set the loading flag to false
+    loadingCreate.value = false
   }
 }
 
@@ -160,6 +169,8 @@ const updateAction = (status: boolean) => {
     errorMessage.value = ''
   }, 3000)
 }
+
+const sizeTasks = computed(() => tasks.value?.length)
 
 /**
  * Thi hook will fetch the tasks before the component is mounted
@@ -212,14 +223,44 @@ onBeforeMount(() => {
           <div class="actions">
             <!-- The buttons to save the task and to see the tasks -->
             <button class="bg-blue text-white" @click="create = false">Ver tareas</button>
-            <button class="bg-blue text-white" @click="requestNewTask()">Guardar</button>
+            <button class="bg-blue text-white flex gap-1" @click="requestNewTask()">
+              <svg
+                class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                v-if="loadingCreate"
+              >
+                <circle
+                  class="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  stroke-width="4"
+                ></circle>
+                <path
+                  class="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
+              <p>Guardar</p>
+            </button>
           </div>
         </div>
       </div>
     </div>
 
     <!-- If there are no tasks, a loading message will be displayed -->
-    <div v-else>Loading ...</div>
+    <div v-else>
+      <p>Cargando ...</p>
+    </div>
+
+    <!-- If there are no tasks, a message will be displayed -->
+    <div v-if="sizeTasks == 0 && !create">
+      <p>Aún no hay tareas registradas, puedes crear una usando el botón más</p>
+    </div>
 
     <!-- The messages for the user -->
     <div class="message text-green success" v-if="message">

@@ -50,6 +50,11 @@ const selectState = ref('Selecciona un estado')
 const states = ['Selecciona un estado', 'Hecho', 'Pendiente', 'En progreso']
 
 /**
+ * Loading update task flag
+ */
+const loadingRequest = ref(false)
+
+/**
  * Closes the modal, emitting the close event
  */
 const onClose = () => {
@@ -71,7 +76,13 @@ const errorMessage = ref('')
  * Sends the request to update the task status, and emits the updateAction event
  */
 const requestUpdate = async () => {
+  // Set the loading flag to true
+  loadingRequest.value = true
+
+  // Variable to store the status
   let status = -1
+
+  // Validate the select value
   if (selectState.value === 'Selecciona un estado') {
     errorMessage.value = 'Seleccione un estado'
     return
@@ -79,6 +90,7 @@ const requestUpdate = async () => {
     errorMessage.value = ''
   }
 
+  // Resolve the status
   switch (selectState.value) {
     case 'Hecho':
       status = 2
@@ -93,11 +105,15 @@ const requestUpdate = async () => {
 
   try {
     // Call the updateTask method from the task service
-    const response = await taskService.updateTask(status, id)
+    await taskService.updateTask(status, id)
+
+    // Emit the updateAction event
     updateAction(true)
   } catch (error) {
     updateAction(false)
-    console.error(error)
+  } finally {
+    // Set the loading flag to false
+    loadingRequest.value = false
   }
 }
 </script>
@@ -119,7 +135,30 @@ const requestUpdate = async () => {
               <p>{{ errorMessage }}</p>
             </div>
           </div>
-          <button @click="requestUpdate()">Editar</button>
+          <button class="flex gap-1" @click="requestUpdate()">
+            <svg
+              class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              v-if="loadingRequest"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              ></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+            <p>Editar</p>
+          </button>
         </div>
       </div>
     </div>

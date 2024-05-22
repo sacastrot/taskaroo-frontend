@@ -22,6 +22,9 @@ import { User } from '@/models/user'
 //Views imports
 import AllUsers from '@/components/AllUsers.vue'
 
+// Variable flag to show the loading state
+const loadingCreate = ref(false)
+
 //Services imports
 import { adminUsersService } from '@/services/users.service'
 
@@ -95,8 +98,12 @@ const validateUser = () => {
  * If the user configuration is invalid, the function will return
  */
 const requestNewUser = async () => {
+  // Set loading state
+  loadingCreate.value = true
+
   validateUser()
   if (error.name || error.email || error.password) {
+    loadingCreate.value = false
     return
   }
 
@@ -129,6 +136,9 @@ const requestNewUser = async () => {
     userConfig.email = ''
     userConfig.password = ''
     create.value = false
+
+    // Set the loading flag to false
+    loadingCreate.value = false
   }
 }
 
@@ -175,6 +185,7 @@ const togglePassword = () => {
         <!-- The title of de Home View and description -->
         <h1 class="font-bold text-2xl">Bienvenido</h1>
         <p class="mt-2">Todas las tareas que tiene el usuario</p>
+        <p class="mt-2">Puedes hacer click sobre un usuario, para crear tareas o administralas</p>
       </div>
       <div class="new-task" @click="newUser()">
         <span class="material-symbols-outlined bg-green rounded-full text-white"> add </span>
@@ -236,7 +247,30 @@ const togglePassword = () => {
           </button>
 
           <!-- Button to create a new user -->
-          <button class="bg-green text-black font-bold" @click="requestNewUser()">Guardar</button>
+          <button class="bg-green text-black font-bold flex gap-1" @click="requestNewUser()">
+            <svg
+              class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              v-if="loadingCreate"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              ></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+            <p>Guardar</p>
+          </button>
         </div>
       </div>
     </div>

@@ -23,7 +23,7 @@
  */
 
 //Vue imports
-import { onBeforeMount, ref } from 'vue'
+import { computed, onBeforeMount, ref } from 'vue'
 
 //Vue Router imports
 import { useRouter } from 'vue-router'
@@ -55,6 +55,8 @@ const redirectTo = (id: number) => {
   router.push({ name: 'task', params: { id } })
 }
 
+const size = computed(() => users.value?.length)
+
 /**
  * Fetches the users from the users service, and stores them in the users variable
  * before the component is mounted
@@ -78,7 +80,10 @@ onBeforeMount(async () => {
     />
   </div>
   <div v-else>
-    <p>Loading...</p>
+    <p>Cargando...</p>
+  </div>
+  <div v-if="size == 0">
+    <p>Aún no hay usuarios registrados, puedes crear uno usando el botón más</p>
   </div>
 </template>
 
